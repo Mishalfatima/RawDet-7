@@ -24,9 +24,10 @@ Annotations with a **score < 0.8** are automatically removed.
 ```bash
 python to_coco.py --mode val --data PASCAL_RAW --data_root ./datasets/RawDet-7
 python to_coco_combined.py --mode val --data_root ./datasets/RawDet-7
+```
 
-## For training:
-
+## Training
+```bash
 python tools/train.py \
   --config ./configs/faster_rcnn/faster-rcnn_r50_fpn_1x_RawDet.py \
   --data_root ./datasets/RawDet-7/ \
@@ -34,9 +35,10 @@ python tools/train.py \
   --quant 4 \
   --is_raw \
   --data NEW
+```
 
-## To evaluate the trained model:
-
+## Evaluation:
+```bash
 python tools/test.py \
   --config ./configs/faster_rcnn/faster-rcnn_r50_fpn_1x_RawDet.py \
   --data_root ./datasets/RawDet-7/ \
@@ -44,3 +46,4 @@ python tools/test.py \
   --quant 4 \
   --is_raw \
   --data NEW
+```
