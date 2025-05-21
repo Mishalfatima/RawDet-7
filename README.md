@@ -27,9 +27,11 @@ python to_coco_combined.py --mode val --data_root ./datasets/RawDet-7
 ```
 ## Configs
 Currently supports configs for Faster-RCNN, PAA, and RetinaNet.
+``` bash
  Faster-RCNN - ./configs/faster_rcnn/faster-rcnn_r50_fpn_1x_RawDet.py
  PAA - configs/paa/paa_r50_fpn_1x_RawDet.py
  RetinaNet - configs/retinanet/retinanet_r50_fpn_1x_RawDet.py
+```
 
 ## Training
 ```bash
