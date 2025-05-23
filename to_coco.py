@@ -25,12 +25,12 @@ def generate_coco(args):
 
     input_dir = os.path.join(data_root,'annotations_normal_json', mode, data)
 
-    if not os.path.exists(os.path.join(data_root, 'coco')):
-        os.makedirs(os.path.join(data_root, 'coco'))
+    if not os.path.exists(os.path.join(data_root, 'annotations_coco')):
+        os.makedirs(os.path.join(data_root, 'annotations_coco'))
 
     output_json = mode + "_" + dat + '.json'
 
-    output_json = os.path.join(data_root, 'coco', output_json)
+    output_json = os.path.join(data_root, 'annotations_coco', output_json)
     print(f"Input directory: {input_dir}")
     print(f"Output JSON file: {output_json}")
 
@@ -122,7 +122,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Train a detector')
     parser.add_argument('--data', default= 'PASCAL_RAW', help='ZURICH,PASCAL_RAW,RAOD, RAW_NOD_NIKON, RAW_NOD_SONY')
     parser.add_argument('--mode', default='val', help='train or val')
-    parser.add_argument('--data_root', default='./datasets/RAW-RGB-Dataset/', help='path to the dataset root')
+    parser.add_argument('--data_root', default='./datasets/RawDet-7/', help='path to the dataset root')
     args = parser.parse_args()
     return args
 

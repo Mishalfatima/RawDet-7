@@ -11,8 +11,8 @@ def generate_coco_combined(args):
     input_dir = os.path.join(data_root, 'annotations_normal_json')
     base_input_dir = os.path.join(input_dir, mode)
 
-    if not os.path.exists(os.path.join(data_root, 'coco')):
-        os.makedirs(os.path.join(data_root, 'coco'))
+    if not os.path.exists(os.path.join(data_root, 'annotations_coco')):
+        os.makedirs(os.path.join(data_root, 'annotations_coco'))
 
 
     output_json_path = mode+"_combined.json"
@@ -118,7 +118,7 @@ def generate_coco_combined(args):
 def parse_args():
     parser = argparse.ArgumentParser(description='Generate COCO style dataset')
     parser.add_argument('--mode', default='val', help='train or val')
-    parser.add_argument('--data_root', default='./datasets/RAW-RGB-Dataset/', help='path to the dataset root')
+    parser.add_argument('--data_root', default='./datasets/RawDet-7/', help='path to the dataset root')
     args = parser.parse_args()
     return args
     
