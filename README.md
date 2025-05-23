@@ -54,3 +54,6 @@ python tools/test.py \
   --is_raw \
   --data NEW
 ```
+
+## Visualize:
+Run visualize.py to visualize annotations, specifying any image id.
