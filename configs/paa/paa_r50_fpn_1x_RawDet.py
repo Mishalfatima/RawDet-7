@@ -111,7 +111,7 @@ train_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
-        ann_file='annotations_coco/combined_train.json'
+        ann_file='annotations_coco/train_combined.json'
     ))
 
 val_dataloader = dict(
@@ -123,7 +123,7 @@ val_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
-        ann_file='annotations_coco/combined_val.json'))
+        ann_file='annotations_coco/val_combined.json'))
 
 test_dataloader = dict(
     batch_size=1,
@@ -134,15 +134,17 @@ test_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
-        ann_file='annotations_coco/combined_val.json'))
+        ann_file='annotations_coco/val_combined.json'))
+
+
 
 val_evaluator = dict(
     type='CocoMetric',
-    ann_file=data_root + 'annotations_coco/combined_val.json',
+    ann_file=None,
     metric='bbox',
     format_only=False,
     backend_args=backend_args)
-
+    
 test_evaluator = val_evaluator
 
 train_cfg = dict(max_epochs=140, type='EpochBasedTrainLoop', val_interval=10, is_raw=True, quant = 4, gamma_= True,

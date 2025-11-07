@@ -120,10 +120,8 @@ class LoadImageFromFile(BaseTransform):
             
             if data == 'PASCAL_RAW':
 
-                #import pdb; pdb.set_trace()
                 name = filename.split("/")[-1].replace('.jpg', '.nef')
                 path = os.path.join(self.data_root,'combined_raw',mode,data,name)
-                #path = os.path.join(self.data_root,'original/raw', name)
                 
                 img = rawpy.imread(path)
                 img = img.raw_image
@@ -158,9 +156,6 @@ class LoadImageFromFile(BaseTransform):
                 img = np.asarray(img_base)
         else:
             try:
-                '''if data == 'RAOD':
-                    img_name =filename.split("/")[-1].replace('.raw', '.png')
-                    filename = os.path.join('/hkfs/work/workspace/scratch/ma_mfatima-mmdetection/datasets/RAW-RGB-Dataset/combined_sRGB',mode,'RAOD',img_name)'''
 
                 if self.file_client_args is not None:
                     file_client = fileio.FileClient.infer_client(

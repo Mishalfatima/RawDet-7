@@ -80,44 +80,33 @@ class RawDetDataset(BaseDetDataset):
         img_info = raw_data_info['raw_img_info']
         ann_info = raw_data_info['raw_ann_info']
 
-        if 'data' in img_info:
-
-            dat = img_info['data']
-            if dat == 'praw':
-                dat = 'PASCAL_RAW'
-            elif dat == 'nikon':
-                dat = 'RAW_NOD_NIKON'
-            elif dat == 'sony':
-                dat = 'RAW_NOD_SONY'
-            elif dat == 'raod':
-                dat = 'RAOD'
-            elif dat == 'zurich':
-                dat = 'ZURICH' 
-
-            
-            data_info = {}
-            mode = self.ann_file.split("/")[-1].split(".")[0].split("_")[1]
-
-        else:
-            dat = self.ann_file.split("/")[-1].split(".")[0].split("_")[1]
-
-            if dat == 'praw':
-                dat = 'PASCAL_RAW'
-            elif dat == 'nikon':
-                dat = 'RAW_NOD_NIKON'
-            elif dat == 'sony':
-                dat = 'RAW_NOD_SONY'
-            elif dat == 'raod':
-                dat = 'RAOD'
-            elif dat == 'zurich':
-                dat = 'ZURICH'
-
-            data_info = {}
-            mode = self.ann_file.split("/")[-1].split(".")[0].split("_")[0]
-
-
-        # TODO: need to change data_prefix['img'] to data_prefix['img_path']
+        mode = self.ann_file.split("/")[-1].split(".")[0].split("_")[0]
         
+        data_info = {}
+
+        if self.ann_file.split("/")[-1].split(".")[0].split("_")[1] == 'combined':
+            dat = img_info['data']     
+        else:
+            dat = self.ann_file.split("/")[-1].split(".")[0].split("_")
+
+            if len(dat) >2:
+                dat = ("_").join(self.ann_file.split("/")[-1].split(".")[0].split("_")[1:])
+            else:
+                dat = self.ann_file.split("/")[-1].split(".")[0].split("_")[1]
+
+        if dat == 'praw':
+            dat = 'PASCAL_RAW'
+        elif dat == 'nikon':
+            dat = 'RAW_NOD_NIKON'
+        elif dat == 'sony':
+            dat = 'RAW_NOD_SONY'
+        elif dat == 'raod':
+            dat = 'RAOD'
+        elif dat == 'zurich':
+            dat = 'ZURICH'
+    
+        # TODO: need to change data_prefix['img'] to data_prefix['img_path']
+        #import pdb; pdb.set_trace()
         if mode == 'train':
             img_path = osp.join(self.data_prefix['img'], 'combined_sRGB', mode, dat, img_info['file_name'])
         elif mode == 'val':
@@ -169,10 +158,12 @@ class RawDetDataset(BaseDetDataset):
             x1, y1, w, h =ann['bbox']
             inter_w = max(0, min(x1 + w, img_info['width']) - max(x1, 0))
             inter_h = max(0, min(y1 + h, img_info['height']) - max(y1, 0))
-
+            area = w*h
+            ann['area'] = area
+            
             if inter_w * inter_h == 0:
                 continue
-            if ann['area'] <= 0 or w < 1 or h < 1:
+            if area <= 0 or w < 1 or h < 1:
                 continue
             #import pdb; pdb.set_trace()
             if ann['category_id'] not in self.cat_ids:

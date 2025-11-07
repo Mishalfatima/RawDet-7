@@ -16,15 +16,6 @@ First, install the environment by following the official [MMDetection installati
 
 Download the dataset from (https://data.dws.informatik.uni-mannheim.de/machinelearning/RawDet-7/) and place it in a directory named "datasets".
 
-## 🛠️ Annotation Conversion
-
-Run the following scripts to convert the dataset to COCO-style annotations.
-Annotations with a **score < 0.8** are automatically removed.
-
-```bash
-python to_coco.py --mode val --data PASCAL_RAW --data_root ./datasets/RawDet-7
-python to_coco_combined.py --mode val --data_root ./datasets/RawDet-7
-```
 ## Configs
 Currently supports configs for Faster-RCNN, PAA, and RetinaNet.
 ``` bash
@@ -41,7 +32,7 @@ python tools/train.py \
   --work-dir ./checkpoints/faster_rcnn/ \
   --quant 4 \
   --is_raw \
-  --data NEW
+  --data RawDet
 ```
 
 ## Evaluation:
@@ -52,7 +43,7 @@ python tools/test.py \
   --work-dir ./checkpoints/faster_rcnn/ \
   --quant 4 \
   --is_raw \
-  --data NEW
+  --data RawDet
 ```
 
 ## Visualize:

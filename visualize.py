@@ -6,7 +6,7 @@ from PIL import Image
 from pycocotools.coco import COCO
 
 # Path to COCO annotations and images
-annotation_file = './datasets/RawDet-7/coco/combined_val.json'
+annotation_file = './datasets/RawDet-7/annotations_coco/val_combined.json'
 image_dir = './datasets/RawDet-7/combined_sRGB/val/'
 
 # Load COCO annotations
@@ -18,8 +18,21 @@ image_ids = coco.getImgIds()
 image_id = image_ids[0]
 image_info = coco.loadImgs(image_id)[0]
 
+dat = image_info['data']
+
+if dat == 'praw':
+    dat = 'PASCAL_RAW'
+elif dat == 'nikon':
+    dat = 'RAW_NOD_NIKON'
+elif dat == 'sony':
+    dat = 'RAW_NOD_SONY'
+elif dat == 'raod':
+    dat = 'RAOD'
+elif dat == 'zurich':
+    dat = 'ZURICH'
+
 # Load image
-image_path = os.path.join(image_dir, image_info['data'], image_info['file_name'])
+image_path = os.path.join(image_dir, dat, image_info['file_name'])
 image = Image.open(image_path)
 
 # Load annotations for the image

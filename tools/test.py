@@ -22,11 +22,11 @@ from mmdet.utils import setup_cache_size_limit_of_dynamo
 def parse_args():
     parser = argparse.ArgumentParser(
         description='MMDet test (and eval) a model')
-    parser.add_argument('--config',default= './configs/faster_rcnn/faster-rcnn_r50_fpn_1x_NEW_IN_Raw_COCO.py',help='test config file path')
+    parser.add_argument('--config',default= './configs/faster_rcnn/faster-rcnn_r50_fpn_1x_RawDet.py',help='test config file path')
     parser.add_argument('--checkpoint', default= '',help='checkpoint file')
-    parser.add_argument('--data-root', default='./datasets/RAW-RGB-Dataset', help='the dir to save logs and models'),
+    parser.add_argument('--data-root', default='./datasets/RawDet-7', help='the dir to save logs and models'),
     parser.add_argument(
-        '--work-dir', default='checkpoints/',
+        '--work-dir', default='/gpfs/bwfor/work/ws/ma_mfatima-mmdetection/mmdetection/Folders/frcnn/CI/ZURICH/NEW_DATA_FRCNN_sRGB',
         help='the directory to save the file containing evaluation metrics')
     parser.add_argument(
         '--out',
@@ -78,16 +78,13 @@ def parse_args():
         "--gamma_",  action='store_true', help="whether to use gamma_correction or not"
     )
     parser.add_argument(
-        "--data_type", default='NEW', help="currently supports pascalraw and NOD"
-    )
-    parser.add_argument(
         "--n_gamma", default=1, type=int, help="whether to use 1 gamma for the whole dataset or 2 for different time of the day"
     )
     parser.add_argument(
         "--use_WB",default=False,  action='store_true', help="whether to use white balance correction or not"
     )
     parser.add_argument(
-        "--test_data",default='NEW',type=str,  help="PRAW, NIKON, SONY, RAOD, ZURICH, NEW"
+        "--test_data",default='ZURICH',type=str,  help="PRAW, NIKON, SONY, RAOD, ZURICH, RawDet"
     )
     parser.add_argument(
         "--vis",default=False,type=bool,  help="whether to visualize the results or not"
@@ -111,17 +108,17 @@ def main():
     setup_cache_size_limit_of_dynamo()
 
     if args.test_data == 'PRAW':
-        ann_file = os.path.join(args.data_root,'coco/val_praw.json')
+        ann_file = os.path.join(args.data_root,'annotations_coco/val_praw.json')
     elif args.test_data == 'NIKON':
-        ann_file = os.path.join(args.data_root,'coco/val_nikon.json')
+        ann_file = os.path.join(args.data_root,'annotations_coco/val_nikon.json')
     elif args.test_data == 'SONY':
-        ann_file = os.path.join(args.data_root,'coco/val_sony.json')
+        ann_file = os.path.join(args.data_root,'annotations_coco/val_sony.json')
     elif args.test_data == 'ZURICH':
-        ann_file = os.path.join(args.data_root,'coco/val_zurich.json')
+        ann_file = os.path.join(args.data_root,'annotations_coco/val_zurich.json')
     elif args.test_data == 'RAOD':
-        ann_file = os.path.join(args.data_root,'coco/val_raod.json')
-    elif args.test_data == 'NEW':
-        ann_file = os.path.join(args.data_root,'coco/combined_val.json')
+        ann_file = os.path.join(args.data_root,'annotations_coco/val_raod.json')
+    elif args.test_data == 'RawDet':
+        ann_file = os.path.join(args.data_root,'annotations_coco/val_combined.json')
         
     args.cfg_options = {'train_dataloader.dataset.data_root':args.data_root,
                         'train_dataloader.dataset.pipeline.0.is_raw':args.is_raw,\
@@ -149,12 +146,11 @@ def main():
                         'val_cfg.is_raw': args.is_raw,'val_cfg.gamma_': args.gamma_,\
                         'val_cfg.log': args.log,'val_cfg.epsilon': args.epsilon,\
                         'val_dataloader.dataset.ann_file': ann_file,
-                        'val_evaluator.ann_file': ann_file,
-                        'test_evaluator.ann_file': ann_file,
                         'val_cfg.quant': args.quant,\
-                        'train_cfg.data_type': args.data_type,
-                        'test_cfg.data_type': args.data_type,\
-                        'val_cfg.data_type': args.data_type, 'val_cfg.n_gamma': args.n_gamma,'val_cfg.use_WB': args.use_WB
+                        #'train_cfg.data_type': args.data_type,
+                        #'test_cfg.data_type': args.data_type,\
+                        #'val_cfg.data_type': args.data_type, 
+                        'val_cfg.n_gamma': args.n_gamma,'val_cfg.use_WB': args.use_WB
                             }
 
     # load config
