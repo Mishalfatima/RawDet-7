@@ -24,7 +24,7 @@ def parse_args():
         description='MMDet test (and eval) a model')
     parser.add_argument('--config',default= './configs/faster_rcnn/faster-rcnn_r50_fpn_1x_RawDet.py',help='test config file path')
     parser.add_argument('--checkpoint', default= '',help='checkpoint file')
-    parser.add_argument('--data-root', default='./datasets/RawDet-7', help='the dir to save logs and models'),
+    parser.add_argument('--data-root', default='/gpfs/bwfor/work/ws/ma_mfatima-mmdetection/RawDet/datasets/RawDet-7', help='the dir to save logs and models'),
     parser.add_argument(
         '--work-dir', default='/gpfs/bwfor/work/ws/ma_mfatima-mmdetection/mmdetection/Folders/frcnn/CI/ZURICH/NEW_DATA_FRCNN_sRGB',
         help='the directory to save the file containing evaluation metrics')

@@ -32,7 +32,7 @@ python tools/train.py \
   --work-dir ./checkpoints/faster_rcnn/ \
   --quant 4 \
   --is_raw \
-  --data RawDet
+  --train_data RawDet
 ```
 
 ## Evaluation:
@@ -43,7 +43,7 @@ python tools/test.py \
   --work-dir ./checkpoints/faster_rcnn/ \
   --quant 4 \
   --is_raw \
-  --data RawDet
+  --test_data RawDet
 ```
 
 ## Visualize:

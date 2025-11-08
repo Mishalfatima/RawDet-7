@@ -15,7 +15,7 @@ import torchvision
 import torch.nn.functional as F
 from typing import List, Optional, Sequence, Tuple, Union
 import random
-
+import torch.nn.init as init
 class STEFunction(torch.autograd.Function):
     @staticmethod
     def forward(ctx, input):
@@ -52,6 +52,18 @@ class StraightThroughEstimator_WB(nn.Module):
             x = STEFunction.apply(x)
             return x
     
+class HistogramToGammaMLP(nn.Module):
+    def __init__(self, input_dim=256, hidden_dim=64):
+        super().__init__()
+        self.mlp = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, 1),
+            nn.Softplus()  # ensures positive gamma
+        )
+
+    def forward(self, hist):
+        return self.mlp(hist)
 
 class BaseModel(BaseModule):
     """Base class for all algorithmic models.
@@ -133,6 +145,21 @@ class BaseModel(BaseModule):
         self.gamma_R = nn.Parameter(data=torch.tensor(1.), requires_grad=True)
         self.gamma_B = nn.Parameter(data=torch.tensor(1.), requires_grad=True)
         self.gamma_G = nn.Parameter(data=torch.tensor(1.), requires_grad=True)
+
+        self.ranges = nn.Parameter(torch.zeros((4)), requires_grad=True)
+        self.ts = nn.Parameter(torch.zeros((4)), requires_grad=True)
+
+        self.m1 = nn.Parameter(data=torch.tensor(1.), requires_grad=True)
+        self.m2 = nn.Parameter(data=torch.tensor(1.), requires_grad=True)
+        self.c1 = nn.Parameter(data=torch.tensor(1.), requires_grad=True)
+        self.c2 = nn.Parameter(data=torch.tensor(1.), requires_grad=True)
+        self.c3 = nn.Parameter(data=torch.tensor(1.), requires_grad=True)
+
+
+        self.gamma_predictor = HistogramToGammaMLP()
+        
+        init.trunc_normal_(self.ts, std=0.02)
+        init.trunc_normal_(self.ranges, std=0.02)
 
         self.gain = 1
         self.relu = nn.ReLU()

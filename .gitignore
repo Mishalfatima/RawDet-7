@@ -123,7 +123,7 @@ work_dirs/
 *.sh
 
 
-checkpoints_rawdet_combined/
+checkpoints/
 Raw-RGB-Dataset/
 
 test/
@@ -131,3 +131,4 @@ pred_multiraw_rawdet/
 slurm/
 
 datasets/
+bash_scripts/

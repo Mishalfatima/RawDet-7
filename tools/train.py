@@ -16,7 +16,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Train a detector')
     parser.add_argument('--config', default= './configs/faster_rcnn/faster-rcnn_r50_fpn_1x_RawDet.py', help='train config file path')
     parser.add_argument('--work-dir', default='test', help='the dir to save logs and models')
-    parser.add_argument('--data-root', default='./datasets/RAW-RGB-Dataset/', help='the dir to save logs and models')
+    parser.add_argument('--data-root', default='/gpfs/bwfor/work/ws/ma_mfatima-mmdetection/RawDet/datasets/RawDet-7', help='the dir to save logs and models')
     parser.add_argument(
         '--amp',
         action='store_true',
@@ -87,7 +87,7 @@ def parse_args():
         "--mode_train", default=True, help="whether to train or not"
     )
     parser.add_argument(
-        "--data",default='NEW',type=str, help="PRAW, NIKON, SONY, RAOD, ZURICH, RawDet"
+        "--train_data",default='RawDet',type=str, help="PRAW, NIKON, SONY, RAOD, ZURICH, RawDet"
     )
 
     args = parser.parse_args()
@@ -107,22 +107,22 @@ def main():
     if args.resume:
         args.resume = os.path.join(args.work_dir, 'latest.pth')
 
-    if args.data == 'PRAW':
+    if args.train_data == 'PRAW':
             ann_file = os.path.join(args.data_root,'annotations_coco/val_praw.json')
             ann_file_train = os.path.join(args.data_root,'annotations_coco/train_praw.json')
-    elif args.data == 'NIKON':
+    elif args.train_data == 'NIKON':
             ann_file = os.path.join(args.data_root,'annotations_coco/val_nikon.json')
             ann_file_train = os.path.join(args.data_root,'annotations_coco/train_nikon.json')
-    elif args.data == 'SONY':
+    elif args.train_data == 'SONY':
             ann_file = os.path.join(args.data_root,'annotations_coco/val_sony.json')
             ann_file_train = os.path.join(args.data_root,'annotations_coco/train_sony.json')
-    elif args.data == 'ZURICH':
+    elif args.train_data == 'ZURICH':
             ann_file = os.path.join(args.data_root,'annotations_coco/val_zurich.json')
             ann_file_train = os.path.join(args.data_root,'annotations_coco/train_zurich.json')
-    elif args.data == 'RAOD':
+    elif args.train_data == 'RAOD':
             ann_file = os.path.join(args.data_root,'annotations_coco/val_raod.json')
             ann_file_train = os.path.join(args.data_root,'annotations_coco/train_raod.json')
-    elif args.data == 'RawDet':
+    elif args.train_data == 'RawDet':
             ann_file = os.path.join(args.data_root,'annotations_coco/val_combined.json')
             ann_file_train = os.path.join(args.data_root,'annotations_coco/train_combined.json')
 
