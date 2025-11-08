@@ -37,7 +37,7 @@ train_dataloader = dict(
     dataset=dict(
         data_root=data_root,
         metainfo=metainfo,
-        ann_file='annotations_coco/train_nikon.json'))
+        ann_file='annotations_coco/train_combined.json'))
 
 val_dataloader = dict(
     batch_size=1,

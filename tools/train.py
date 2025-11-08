@@ -131,12 +131,13 @@ def main():
                         'train_dataloader.dataset.pipeline.0.is_raw':args.is_raw,\
                         'train_dataloader.dataset.pipeline.2.is_raw':args.is_raw,\
                         'train_dataloader.dataset.pipeline.0.data_root':args.data_root,\
-                        'test_dataloader.dataset.ann_file': ann_file_train,
+                        'test_dataloader.dataset.ann_file': ann_file,
                         'test_dataloader.dataset.pipeline.0.is_raw':args.is_raw,\
                         'test_dataloader.dataset.pipeline.2.is_raw':args.is_raw,
                         'val_dataloader.dataset.pipeline.0.is_raw':args.is_raw,\
                         'val_dataloader.dataset.pipeline.1.is_raw':args.is_raw,
                         'val_dataloader.dataset.ann_file': ann_file,
+                        'train_dataloader.dataset.ann_file': ann_file_train,
                         'test_dataloader.dataset.data_root':args.data_root,\
                         'test_dataloader.dataset.pipeline.0.data_root':args.data_root,
                         'val_dataloader.dataset.data_root':args.data_root,\
