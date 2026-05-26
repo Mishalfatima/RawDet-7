@@ -353,6 +353,11 @@ class BaseModel(BaseModule):
 
             else:
                 scaled_raw = x
+
+                norm_img =(scaled_raw - 0)/(256 - 1)
+                norm_img = norm_img ** self.relu((self.gamma))
+                norm_img = norm_img * 255.0
+                scaled_raw = norm_img
             
 
             imgs.append(scaled_raw)
@@ -393,10 +398,9 @@ class BaseModel(BaseModule):
         # Enable automatic mixed precision training context.
         with optim_wrapper.optim_context(self):
             
-            if is_raw:
-                if model_type == 'YOLOX':
+            if model_type == 'YOLOX':
                     data = self.quant_module_yolox(data, is_raw, quant, log, epsilon, gamma_, data_type)
-                else:
+            else:
                     data = self.quant_module(data, is_raw, quant, log, epsilon, log_lr, gamma_, data_type, n_gamma, use_WB)
 
             data = self.data_preprocessor(data, True)

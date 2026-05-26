@@ -30,6 +30,10 @@ metainfo = {
         'palette': [(106, 0, 228), (119, 11, 32), (165, 42, 42), (0, 0, 192),
                     (197, 226, 255), (0, 60, 100), (0, 60, 100)]}
 
+optim_wrapper = dict(
+    type='OptimWrapper',
+    optimizer=dict(type='SGD', lr=0.0025, momentum=0.9, weight_decay=0.001)) # Added this for log frozen experiments
+
 backend_args = None
 
 train_dataloader = dict(

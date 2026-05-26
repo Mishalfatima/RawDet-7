@@ -85,5 +85,5 @@ test_dataloader = dict(
         ann_file='annotations/instances_val2017.json',
         data_prefix=dict(img='val2017/'),
         test_mode=True,
-        pipeline=test_pipeline,
+        pipeline=val_pipeline,
         backend_args=backend_args))

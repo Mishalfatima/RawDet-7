@@ -156,8 +156,8 @@ def main():
                         'val_cfg.quant': args.quant,'val_cfg.log_lr': args.log_learnable,\
                         'train_cfg.data_type': args.data_type,
                         'val_dataloader.dataset.ann_file': ann_file,
-                        'val_evaluator.ann_file': ann_file,
-                        'test_evaluator.ann_file': ann_file,
+                        #'val_evaluator.ann_file': ann_file,
+                        #'test_evaluator.ann_file': ann_file,
                         'test_cfg.data_type': args.data_type,'test_cfg.log_lr': args.log_learnable,\
                         'val_cfg.data_type': args.data_type, 'val_cfg.n_gamma': args.n_gamma,'val_cfg.use_WB': args.use_WB,
                         'custom_hooks.0.is_raw': args.is_raw, 'custom_hooks.0.gamma_': args.gamma_,\
